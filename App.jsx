@@ -10,11 +10,16 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { MainNav } from './src/navigation/MainNav'
 
+import { Provider } from 'react-redux'
+import { store } from './src/redux/store/store'
+
 function App() {
   return (
-    <NavigationContainer>
-      <MainNav />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MainNav />
+      </NavigationContainer>
+    </Provider>
   )
 }
 

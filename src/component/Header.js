@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { DIM, COLORS } from '../asset/theme'
 
@@ -14,10 +14,12 @@ export default function Header({ onMenuPress, title }) {
   return (
     <View style={container}>
       <View style={innerContainer}>
-        <Image
-          source={require('../asset/images/menu.png')}
-          style={leftIconStyle}
-        />
+        <TouchableOpacity onPress={onMenuPress}>
+          <Image
+            source={require('../asset/images/menu.png')}
+            style={leftIconStyle}
+          />
+        </TouchableOpacity>
 
         <View style={textContainer}>
           <Text style={headerText}>{title}</Text>

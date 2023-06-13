@@ -15,7 +15,7 @@ export default function Splash({ navigation }) {
     <View style={container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
       <Image source={require('../asset/images/expenso.png')} style={logo} />
-      <Text style={logoText}>Expenso</Text>
+      {/* <Text style={logoText}>Expenso</Text> */}
     </View>
   )
 }

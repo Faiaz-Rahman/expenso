@@ -5,12 +5,12 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  FlatList,
+  ScrollView,
 } from 'react-native'
 import React from 'react'
-import { DIM } from '../asset/theme'
+import { COLORS, DIM } from '../asset/theme'
 
-import { Header } from '../component'
+import { ExpenseCard, Header } from '../component'
 
 export default function Home() {
   const {
@@ -26,6 +26,43 @@ export default function Home() {
     expenseImageIconStyle,
   } = styles
 
+  const colors = [
+    COLORS.lighterBlue,
+    COLORS.lightYellow,
+    COLORS.lightPink,
+    COLORS.lightGreen,
+  ]
+
+  const data = [
+    {
+      category: 'Charity',
+      expense: '৳1,300',
+      img: require('../asset/images/heart.png'),
+    },
+    {
+      category: 'Journeys',
+      expense: '৳3,500',
+      img: require('../asset/images/pin.png'),
+    },
+    {
+      category: 'Food',
+      expense: '৳1,500',
+      img: require('../asset/images/food.png'),
+    },
+
+    {
+      category: 'Shopping',
+      expense: '৳5,000',
+      img: require('../asset/images/shopping.png'),
+    },
+    {
+      category: 'Home Rent',
+      expense: '৳10,300',
+      img: require('../asset/images/home.png'),
+    },
+  ]
+
+  //Created a separate component for the buttons.
   const expenseButton = ({ value }) => {
     return (
       <View style={styles.expenseContainer}>
@@ -70,9 +107,25 @@ export default function Home() {
         </View>
         <View style={imageOverlayCard}>
           <Text style={styles.expenseBottomCardContainerText}>Expenses</Text>
-
-          <FlatList data={data} />
         </View>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{
+            // backgroundColor: 'red',
+            paddingLeft: '7%',
+            paddingTop: '17%',
+          }}>
+          {data.map((item, ind) => {
+            return (
+              <ExpenseCard
+                key={ind}
+                item={item}
+                color={colors[ind % 4]}
+                img={item.img}
+              />
+            )
+          })}
+        </ScrollView>
       </View>
     </View>
   )
@@ -86,13 +139,12 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   container: {
-    flex: 1,
     alignItems: 'center',
   },
   expenseBottomCardContainerText: {
-    fontSize: 25,
+    fontSize: 27,
     color: 'black',
-    fontWeight: '600',
+    fontWeight: '700',
   },
   expenseButtonStyle: {
     height: DIM.height * 0.1,
@@ -129,22 +181,20 @@ const styles = StyleSheet.create({
     height: DIM.height * 0.45,
     width: DIM.width,
     resizeMode: 'cover',
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
   },
   imageContainer: {
     position: 'relative',
   },
   imageOverlayCard: {
     position: 'absolute',
-    height: '100%',
-    width: '100%',
     top: DIM.height * 0.4,
     backgroundColor: 'white',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingTop: '10%',
     paddingLeft: '7%',
+    height: DIM.height * 0.55,
+    width: '100%',
     // alignItems: 'center',
   },
   imageLayer: {

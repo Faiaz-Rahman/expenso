@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import {
   Image,
   Text,
@@ -7,12 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native'
-import React from 'react'
-import { COLORS, DIM } from '../asset/theme'
+import { COLORS, DIM, data, colors } from '../asset/theme'
 
 import { ExpenseCard, Header } from '../component'
 
-export default function Home() {
+export default function Home({ navigation }) {
   const {
     container,
     image,
@@ -25,42 +25,6 @@ export default function Home() {
     expenseButtonContainer,
     expenseImageIconStyle,
   } = styles
-
-  const colors = [
-    COLORS.lighterBlue,
-    COLORS.lightYellow,
-    COLORS.lightPink,
-    COLORS.lightGreen,
-  ]
-
-  const data = [
-    {
-      category: 'Charity',
-      expense: '৳1,300',
-      img: require('../asset/images/heart.png'),
-    },
-    {
-      category: 'Journeys',
-      expense: '৳3,500',
-      img: require('../asset/images/pin.png'),
-    },
-    {
-      category: 'Food',
-      expense: '৳1,500',
-      img: require('../asset/images/food.png'),
-    },
-
-    {
-      category: 'Shopping',
-      expense: '৳5,000',
-      img: require('../asset/images/shopping.png'),
-    },
-    {
-      category: 'Home Rent',
-      expense: '৳10,300',
-      img: require('../asset/images/home.png'),
-    },
-  ]
 
   //Created a separate component for the buttons.
   const expenseButton = ({ value }) => {
@@ -91,7 +55,7 @@ export default function Home() {
   return (
     <View style={container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
-      <Header title={'Home'} />
+      <Header title={'Home'} onMenuPress={() => navigation.openDrawer()} />
       <View style={imageContainer}>
         <Image
           style={image}
@@ -193,7 +157,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     paddingTop: '10%',
     paddingLeft: '7%',
-    height: DIM.height * 0.55,
+    height: DIM.height * 0.6,
     width: '100%',
     // alignItems: 'center',
   },

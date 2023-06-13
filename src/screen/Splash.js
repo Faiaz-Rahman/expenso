@@ -3,7 +3,7 @@ import { View, Text, StatusBar, StyleSheet, Image } from 'react-native'
 import { COLORS, DIM } from '../asset/theme'
 
 export default function Splash({ navigation }) {
-  const { container, logo, logoText } = styles
+  const { container, logo } = styles
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,7 +15,6 @@ export default function Splash({ navigation }) {
     <View style={container}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
       <Image source={require('../asset/images/expenso.png')} style={logo} />
-      {/* <Text style={logoText}>Expenso</Text> */}
     </View>
   )
 }
@@ -31,9 +30,5 @@ const styles = StyleSheet.create({
     height: DIM.height * 0.15,
     width: DIM.height * 0.15,
     tintColor: COLORS.primary,
-  },
-  logoText: {
-    color: 'black',
-    fontSize: 16,
   },
 })

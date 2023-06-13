@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     width: DIM.width * 0.35,
     borderRadius: DIM.width * 0.35 * 0.2,
     // backgroundColor: 'tomato',
-    marginRight: 25,
+    marginRight: 20,
     borderWidth: 4,
     borderColor: COLORS.boxOutline,
     paddingTop: 20,

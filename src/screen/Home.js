@@ -47,7 +47,7 @@ export default function Home({ navigation }) {
           img = require('../asset/images/shopping.png')
           break
 
-        case 'Home':
+        case 'Home Rent':
           img = require('../asset/images/home.png')
           break
         default:

@@ -8,7 +8,7 @@ export default function CustomInput({ text, onChangeText }) {
       <TextInput
         onChangeText={onChangeText}
         placeholder={text}
-        placeholderTextColor="slate"
+        placeholderTextColor={'rgb(128,128,128)'}
         style={styles.textInput}
         keyboardType={text === 'Amount' ? 'numeric' : 'default'}
       />

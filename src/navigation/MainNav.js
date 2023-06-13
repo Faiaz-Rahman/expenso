@@ -3,6 +3,8 @@ import { Home, Splash } from '../screen'
 
 import { createStackNavigator } from '@react-navigation/stack'
 
+import { DrawerNav } from './DrawerNav'
+
 const MainStack = createStackNavigator()
 
 const MainNav = () => {
@@ -17,7 +19,7 @@ const MainNav = () => {
       />
       <MainStack.Screen
         name="home"
-        component={Home}
+        component={DrawerNav}
         options={{
           headerShown: false,
         }}

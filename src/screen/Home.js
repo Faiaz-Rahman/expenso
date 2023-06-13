@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Image,
   Text,
@@ -7,12 +7,19 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Modal,
 } from 'react-native'
 import { COLORS, DIM, data, colors } from '../asset/theme'
 
-import { ExpenseCard, Header } from '../component'
+import { CustomInput, ExpenseCard, Header } from '../component'
 
 export default function Home({ navigation }) {
+  const [showModal, setShowModal] = useState(false)
+
+  const onCloseModal = () => {
+    setShowModal(false)
+  }
+
   const {
     container,
     image,
@@ -30,7 +37,15 @@ export default function Home({ navigation }) {
   const expenseButton = ({ value }) => {
     return (
       <View style={styles.expenseContainer}>
-        <TouchableOpacity style={expenseButtonStyle}>
+        <TouchableOpacity
+          style={expenseButtonStyle}
+          onPress={() => {
+            if (value === 'plus') {
+              setShowModal(true)
+            } else {
+              navigation.navigate('History')
+            }
+          }}>
           {value === 'plus' ? (
             <Image
               source={require('../asset/images/plus.png')}
@@ -54,8 +69,41 @@ export default function Home({ navigation }) {
 
   return (
     <View style={container}>
+      {/* Code for Modal */}
+      {showModal && (
+        <Modal
+          animationType="slide"
+          transparent
+          onRequestClose={() => {
+            setShowModal(false)
+          }}>
+          <View style={styles.modal}>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: '900',
+                color: COLORS.primary,
+                marginBottom: 20,
+              }}>
+              Add your expense
+            </Text>
+            <CustomInput text="Enter Category" />
+            <CustomInput text="Amount" />
+
+            <TouchableOpacity
+              onPress={() => {
+                onCloseModal()
+              }}
+              style={styles.modalButton}>
+              <Text style={styles.modalButtonText}>Add</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      )}
+
       <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
       <Header title={'Home'} onMenuPress={() => navigation.openDrawer()} />
+
       <View style={imageContainer}>
         <Image
           style={image}
@@ -73,9 +121,9 @@ export default function Home({ navigation }) {
           <Text style={styles.expenseBottomCardContainerText}>Expenses</Text>
         </View>
         <ScrollView
+          showsHorizontalScrollIndicator={false}
           horizontal
           contentContainerStyle={{
-            // backgroundColor: 'red',
             paddingLeft: '7%',
             paddingTop: '17%',
           }}>
@@ -170,6 +218,44 @@ const styles = StyleSheet.create({
     paddingRight: '5%',
     height: '85%',
     width: '100%',
+  },
+
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15,
+    height: DIM.height * 0.7,
+    width: DIM.width * 0.9,
+    backgroundColor: 'white',
+    top: '12%',
+    bottom: '12%',
+    left: '5%',
+    right: '5%',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    borderRightColor: COLORS.lightBlue,
+    borderLeftColor: COLORS.primary,
+    borderTopColor: COLORS.primary,
+    borderBottomColor: COLORS.lightBlue,
+    borderWidth: 10,
+    opacity: 0.85,
+    elevation: 4,
+  },
+  modalButton: {
+    height: '13%',
+    width: '35%',
+    borderRadius: 20,
+    marginTop: 10,
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalButtonText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '800',
   },
   titleText: {
     color: 'white',

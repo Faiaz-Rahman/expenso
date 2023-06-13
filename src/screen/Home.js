@@ -12,12 +12,65 @@ import {
 import { COLORS, DIM, data, colors } from '../asset/theme'
 
 import { CustomInput, ExpenseCard, Header } from '../component'
+import { useSelector, useDispatch } from 'react-redux'
+
+import moment from 'moment'
 
 export default function Home({ navigation }) {
   const [showModal, setShowModal] = useState(false)
+  const [cat, setCat] = useState('')
+  const [amount, setAmount] = useState('')
+
+  const dispatch = useDispatch()
+  const myData = useSelector(state => state.add)
+  const total_expense = useSelector(state => state.total)
 
   const onCloseModal = () => {
-    setShowModal(false)
+    if (cat !== '' && amount !== '') {
+      setShowModal(false)
+      const date = new Date()
+      const momentDate = moment(date).format('MMMM Do YYYY')
+      const dateTime = momentDate.split(' ')
+
+      let img
+      switch (cat) {
+        case 'Charity':
+          img = require('../asset/images/heart.png')
+          break
+        case 'Journeys':
+          img = require('../asset/images/pin.png')
+          break
+        case 'Food':
+          img = require('../asset/images/food.png')
+          break
+        case 'Shopping':
+          img = require('../asset/images/shopping.png')
+          break
+
+        case 'Home':
+          img = require('../asset/images/home.png')
+          break
+        default:
+          img = require('../asset/images/pin.png')
+          break
+      }
+      // console.log(dateTime)
+      dispatch({
+        type: 'add',
+        payload: {
+          category: cat,
+          expense: amount,
+          dateTime,
+          img,
+        },
+      })
+      dispatch({
+        type: 'update_total',
+        payload: {
+          expense: parseInt(amount, 10),
+        },
+      })
+    }
   }
 
   const {
@@ -33,6 +86,26 @@ export default function Home({ navigation }) {
     expenseImageIconStyle,
   } = styles
 
+  useEffect(() => {
+    console.log(typeof total_expense)
+  }, [])
+
+  const handleExpense = value => {
+    if (value === 'plus') {
+      setShowModal(true)
+    } else {
+      navigation.navigate('History')
+    }
+  }
+
+  const handleChangeText = ({ val, text }) => {
+    if (val === 'amt') {
+      setAmount(text)
+    } else {
+      setCat(text)
+    }
+  }
+
   //Created a separate component for the buttons.
   const expenseButton = ({ value }) => {
     return (
@@ -40,11 +113,7 @@ export default function Home({ navigation }) {
         <TouchableOpacity
           style={expenseButtonStyle}
           onPress={() => {
-            if (value === 'plus') {
-              setShowModal(true)
-            } else {
-              navigation.navigate('History')
-            }
+            handleExpense(value)
           }}>
           {value === 'plus' ? (
             <Image
@@ -87,9 +156,18 @@ export default function Home({ navigation }) {
               }}>
               Add your expense
             </Text>
-            <CustomInput text="Enter Category" />
-            <CustomInput text="Amount" />
+            <CustomInput
+              text="Enter Category"
+              onChangeText={text => {
+                handleChangeText({ val: 'cat', text })
+              }}
+            />
+            <CustomInput
+              text="Amount"
+              onChangeText={text => handleChangeText({ val: 'amt', text })}
+            />
 
+            {/* Modal Button */}
             <TouchableOpacity
               onPress={() => {
                 onCloseModal()
@@ -111,7 +189,7 @@ export default function Home({ navigation }) {
         />
         <View style={imageLayer}>
           <Text style={titleText}>Expenses</Text>
-          <Text style={balanceText}>৳5,500</Text>
+          <Text style={balanceText}>{`৳${total_expense}`}</Text>
           <View style={expenseButtonContainer}>
             {expenseButton({ value: 'plus' })}
             {expenseButton({ value: 'history' })}
@@ -127,16 +205,27 @@ export default function Home({ navigation }) {
             paddingLeft: '7%',
             paddingTop: '17%',
           }}>
-          {data.map((item, ind) => {
-            return (
-              <ExpenseCard
-                key={ind}
-                item={item}
-                color={colors[ind % 4]}
-                img={item.img}
-              />
-            )
-          })}
+          {myData.length === 0
+            ? data.map((item, ind) => {
+                return (
+                  <ExpenseCard
+                    key={ind}
+                    item={item}
+                    color={colors[ind % 4]}
+                    img={item.img}
+                  />
+                )
+              })
+            : myData.map((item, ind) => {
+                return (
+                  <ExpenseCard
+                    key={ind}
+                    item={item}
+                    color={colors[ind % 4]}
+                    img={item.img}
+                  />
+                )
+              })}
         </ScrollView>
       </View>
     </View>

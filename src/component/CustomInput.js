@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, StyleSheet, TextInput } from 'react-native'
 import { COLORS } from '../asset/theme'
 
 export default function CustomInput({ text, onChangeText }) {
@@ -8,9 +8,9 @@ export default function CustomInput({ text, onChangeText }) {
       <TextInput
         onChangeText={onChangeText}
         placeholder={text}
-        placeholderTextColor={'slate'}
+        placeholderTextColor="slate"
         style={styles.textInput}
-        inputMode={text === 'Amount' ? 'numeric' : 'text'}
+        keyboardType={text === 'Amount' ? 'numeric' : 'default'}
       />
     </View>
   )

@@ -24,7 +24,7 @@ export default function ExpenseCard({ item, color, img }) {
         />
       </View>
       <Text style={styles.cardText}>{item.category}</Text>
-      <Text style={styles.amountText}>{item.expense}</Text>
+      <Text style={styles.amountText}>{`৳${item.expense}`}</Text>
     </View>
   )
 }

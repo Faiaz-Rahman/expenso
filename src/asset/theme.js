@@ -19,28 +19,28 @@ export const COLORS = {
 export const data = [
   {
     category: 'Charity',
-    expense: '৳1,300',
+    expense: '1,300',
     img: require('../asset/images/heart.png'),
   },
   {
     category: 'Journeys',
-    expense: '৳3,500',
+    expense: '3,500',
     img: require('../asset/images/pin.png'),
   },
   {
     category: 'Food',
-    expense: '৳1,500',
+    expense: '1,500',
     img: require('../asset/images/food.png'),
   },
 
   {
     category: 'Shopping',
-    expense: '৳5,000',
+    expense: '5,000',
     img: require('../asset/images/shopping.png'),
   },
   {
     category: 'Home Rent',
-    expense: '৳10,300',
+    expense: '10,300',
     img: require('../asset/images/home.png'),
   },
 ]

@@ -9,7 +9,7 @@ import {
   ScrollView,
   Modal,
 } from 'react-native'
-import { COLORS, DIM, data, colors, dummyData } from '../asset/theme'
+import { COLORS, DIM, colors, dummyData } from '../asset/theme'
 
 import { CustomInput, ExpenseCard, Header } from '../component'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,10 +18,15 @@ import moment from 'moment'
 
 export default function Home({ navigation }) {
   const [showModal, setShowModal] = useState(false)
+
+  //Stores the category and amount...
   const [cat, setCat] = useState('')
   const [amount, setAmount] = useState('')
 
+  //Dispatch hook to dispatch actions to store...
   const dispatch = useDispatch()
+
+  //Getting data from the store...
   const myData = useSelector(state => state.add)
   const total_expense = useSelector(state => state.total)
 
@@ -33,6 +38,7 @@ export default function Home({ navigation }) {
       const dateTime = momentDate.split(' ')
 
       let img
+      //Setting Image according to category...
       switch (cat) {
         case 'Charity':
           img = require('../asset/images/heart.png')
@@ -55,15 +61,39 @@ export default function Home({ navigation }) {
           break
       }
       // console.log(dateTime)
-      dispatch({
-        type: 'add',
-        payload: {
-          category: cat,
-          expense: amount,
-          dateTime,
-          img,
-        },
-      })
+
+      //This will dispatch the action to add the
+      //element into the history.
+      let tmpArr = myData.filter(item => item.category === cat)
+      if (tmpArr.length === 1) {
+        let expenseStr = tmpArr[0].expense
+        let expenseNum = parseInt(expenseStr, 10)
+        expenseNum += parseInt(amount, 10)
+
+        //This is called when the category is already
+        //existing in the history, it just updates the
+        //amount of expense...
+        dispatch({
+          type: 'addAmountOnly',
+          payload: {
+            category: cat,
+            expense: expenseNum,
+          },
+        })
+      } else {
+        dispatch({
+          type: 'add',
+          payload: {
+            category: cat,
+            expense: amount,
+            dateTime,
+            img,
+          },
+        })
+      }
+
+      //This will update the total expense shown in the
+      //dashboard.
       dispatch({
         type: 'update_total',
         payload: {

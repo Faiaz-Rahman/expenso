@@ -16,32 +16,37 @@ export const COLORS = {
   lightPink: '#f9aec5',
   lightGreen: '#c5f2a0',
 }
-export const data = [
+export const dummyData = [
   {
     category: 'Charity',
     expense: '1,300',
     img: require('../asset/images/heart.png'),
+    dateTime: ['14th', 'Jun', '2023'],
   },
   {
     category: 'Journeys',
     expense: '3,500',
     img: require('../asset/images/pin.png'),
+    dateTime: ['14th', 'Jul', '2022'],
   },
   {
     category: 'Food',
     expense: '1,500',
     img: require('../asset/images/food.png'),
+    dateTime: ['14th', 'Aug', '2021'],
   },
 
   {
     category: 'Shopping',
     expense: '5,000',
     img: require('../asset/images/shopping.png'),
+    dateTime: ['14th', 'Aug', '2020'],
   },
   {
     category: 'Home Rent',
     expense: '10,300',
     img: require('../asset/images/home.png'),
+    dateTime: ['14th', 'Mar', '2021'],
   },
 ]
 export const colors = [

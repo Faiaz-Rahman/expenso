@@ -2,9 +2,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { COLORS, DIM } from '../asset/theme'
 
-export default function Filters({ title }) {
+export default function Filters({ title, onFilterClick }) {
   return (
-    <TouchableOpacity style={styles.filterContainer}>
+    <TouchableOpacity style={styles.filterContainer} onPress={onFilterClick}>
       <Text style={styles.filterText}>{title}</Text>
     </TouchableOpacity>
   )

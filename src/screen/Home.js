@@ -9,7 +9,7 @@ import {
   ScrollView,
   Modal,
 } from 'react-native'
-import { COLORS, DIM, data, colors } from '../asset/theme'
+import { COLORS, DIM, data, colors, dummyData } from '../asset/theme'
 
 import { CustomInput, ExpenseCard, Header } from '../component'
 import { useSelector, useDispatch } from 'react-redux'
@@ -29,7 +29,7 @@ export default function Home({ navigation }) {
     if (cat !== '' && amount !== '') {
       setShowModal(false)
       const date = new Date()
-      const momentDate = moment(date).format('MMMM Do YYYY')
+      const momentDate = moment(date).format('MMM Do YYYY')
       const dateTime = momentDate.split(' ')
 
       let img
@@ -86,9 +86,9 @@ export default function Home({ navigation }) {
     expenseImageIconStyle,
   } = styles
 
-  useEffect(() => {
-    console.log(typeof total_expense)
-  }, [])
+  // useEffect(() => {
+  //   console.log(typeof total_expense)
+  // }, [])
 
   const handleExpense = value => {
     if (value === 'plus') {
@@ -206,7 +206,7 @@ export default function Home({ navigation }) {
             paddingTop: '17%',
           }}>
           {myData.length === 0
-            ? data.map((item, ind) => {
+            ? dummyData.map((item, ind) => {
                 return (
                   <ExpenseCard
                     key={ind}

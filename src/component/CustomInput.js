@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
 import { COLORS } from '../asset/theme'
 
-export default function CustomInput({ text, onChangeText }) {
+export default function CustomInput({ text, onChangeText, onSubmitEditing }) {
   return (
     <View style={styles.input}>
       <TextInput
@@ -11,6 +11,7 @@ export default function CustomInput({ text, onChangeText }) {
         placeholderTextColor={'rgb(128,128,128)'}
         style={styles.textInput}
         keyboardType={text === 'Amount' ? 'numeric' : 'default'}
+        onSubmitEditing={onSubmitEditing}
       />
     </View>
   )
